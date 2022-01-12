@@ -23,3 +23,13 @@
 
 НАРУШЕНИЕ обозначенных условий - задание не выполнено!!!
 """
+import chardet
+
+with open('test_file.txt', mode='rb') as f:
+    str_in_files = f.read()
+    type_of_encoding = chardet.detect(str_in_files)
+    decode_file = bytes.decode(str_in_files, type_of_encoding['encoding'])
+    with open('test_file.txt', mode='w', encoding='utf-8') as f:
+        f.write(decode_file)
+    with open('test_file.txt', mode='r', encoding='utf-8') as f:
+        print(f.read())
