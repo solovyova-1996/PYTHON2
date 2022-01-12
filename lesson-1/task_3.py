@@ -9,3 +9,15 @@
 --- обязательно!!! усложните задачу, "отловив" и обработав исключение,
 придумайте как это сделать
 """
+
+lst = ['attribute', 'класс', 'функция', 'type']
+lst_ascii = list()
+
+for i in lst:
+    try:
+        bytes_i = bytes(i, encoding='ascii')
+    except UnicodeEncodeError:
+        lst_ascii.append(i)
+
+print(
+    f'Слова: {lst_ascii} невозможно записать в байтовом типе с помощью маркировки b""')
