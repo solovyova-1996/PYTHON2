@@ -8,3 +8,11 @@
 Подсказки:
 --- используйте списки и циклы, не дублируйте функции
 """
+lst = ['разработка', 'администрирование', 'protocol', 'standard']
+for i in lst:
+    bytes_i = i.encode('utf-8')
+    bytes_i_decode = bytes_i.decode('utf-8')
+    print(f'переменная в строковом виде -[{i}] тип: {type(i)} \n'
+          f'переменная преобразованная в байты - [{bytes_i}] тип: {type(bytes_i)} \n'
+          f'переменная обратно преобразованная в строковый вид - [{bytes_i_decode}] тип: {type(bytes_i_decode)}\n'
+          f'{"*" * 100}')
