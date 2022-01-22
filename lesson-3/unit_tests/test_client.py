@@ -18,7 +18,9 @@ class TestClient(TestCase):
         self.correct_answer_from_function_error = 'Код ответа:400 : Bad Request'
 
     def tearDown(self) -> None:
-        pass
+        del self.expected_result, self.correct_answer_from_function_error, \
+            self.correct_answer_from_function_ok, self.messages_from_server_error,\
+            self.messages_from_server_ok, self.time_for_test
 
     def test_create_greetings(self):
         test_data = create_greetings()
@@ -34,5 +36,7 @@ class TestClient(TestCase):
         self.assertEqual(
             handler_response_from_server(self.messages_from_server_error),
             self.correct_answer_from_function_error)
+
     def test_no_response(self):
-        self.assertRaises(ValueError,handler_response_from_server,{ERROR: 'Bad Request'})
+        self.assertRaises(ValueError, handler_response_from_server,
+                          {ERROR: 'Bad Request'})
