@@ -11,7 +11,7 @@ from general.variables import ACTION, GREETINGS, TIME, USER, ACCOUNT_NAME, \
 def create_greetings(account_name='Guest'):
     # генерация запроса о присутствии клиента
     return {ACTION: GREETINGS, TIME: time(), USER: {
-        ACCOUNT_NAME: account_name}}  # messages = {  #     ACTION : GREETINGS,  #     TIME:time(),  #     USER:{  #         ACCOUNT_NAME:account_name  #     }  # }  # return messages
+        ACCOUNT_NAME: G}}
 
 
 def handler_response_from_server(message):
@@ -19,7 +19,7 @@ def handler_response_from_server(message):
         if message[RESPONSE] == 200:
             return 'Код ответа:200 - "ОК"'
         return f'Код ответа:400 : {message[ERROR]}'
-
+    raise ValueError
 
 def main():
     try:

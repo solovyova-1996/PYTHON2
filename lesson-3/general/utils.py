@@ -1,7 +1,4 @@
 import json
-
-import chardet
-
 from .variables import MAX_PACKAGE_SIZE, ENCODING
 
 

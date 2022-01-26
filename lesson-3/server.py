@@ -12,9 +12,7 @@ def handler_client_messages(messages):
     if ACTION in messages and messages[
         ACTION] == GREETINGS and TIME in messages and USER in messages and \
             messages[USER][ACCOUNT_NAME] == 'Guest':
-        print('ОК')
         return {RESPONSE: 200}
-    print('Bad Request')
     return {RESPONSE: 400, ERROR: 'Bad Request'}
 
 
