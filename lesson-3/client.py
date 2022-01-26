@@ -11,7 +11,7 @@ from general.variables import ACTION, GREETINGS, TIME, USER, ACCOUNT_NAME, \
 def create_greetings(account_name='Guest'):
     # генерация запроса о присутствии клиента
     return {ACTION: GREETINGS, TIME: time(), USER: {
-        ACCOUNT_NAME: account_name}}
+        ACCOUNT_NAME: G}}
 
 
 def handler_response_from_server(message):
