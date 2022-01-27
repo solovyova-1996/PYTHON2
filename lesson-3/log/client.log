@@ -1,0 +1,4 @@
+2022-01-27 13:12:56,850        CRITICAL-50                   client_log_config            new_messages
+2022-01-27 13:12:56,851        ERROR-40                   client_log_config            error_message
+2022-01-27 13:12:56,851        DEBUG-10                   client_log_config            debug-messages
+2022-01-27 13:14:43,253        INFO-20                   client                       Клиент присоединился к серверу

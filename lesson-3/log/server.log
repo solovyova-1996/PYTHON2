@@ -1,0 +1,4 @@
+2022-01-27 13:13:46,617 CRITICAL(50) server_log_config new_messages
+2022-01-27 13:13:46,617 ERROR(40) server_log_config error_message
+2022-01-27 13:13:46,618 DEBUG(10) server_log_config debug-messages
+2022-01-27 13:14:43,250 INFO(20) server       Клиент- Guest подключился к серверу(отправил корректный запрос)
