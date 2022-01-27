@@ -4,6 +4,8 @@ from logging import getLogger, Formatter, INFO, DEBUG, StreamHandler
 from pathlib import Path
 from logging import handlers
 
+from general.variables import ENCODING
+
 sys.path.append('../')
 path = Path(__file__).parents[1]
 path = os.path.join(path, 'log', 'server.log')
@@ -18,7 +20,7 @@ formatter = Formatter(
 # создаем обработчик для ротации лог-файлов один раз в день
 handler_server_log = handlers.TimedRotatingFileHandler(filename=path, when='D',
                                                        interval=1,
-                                                       backupCount=100)
+                                                       backupCount=100,encoding=ENCODING)
 handler_server_log_stdout = StreamHandler(sys.stdout)
 handler_server_log_stdout.setFormatter(formatter)
 handler_server_log_stdout.setLevel(DEBUG)
