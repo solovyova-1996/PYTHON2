@@ -14,7 +14,6 @@ def get_messages(client):
         # print(decode_response)
         # десериализуем даннные из json
         response = json.loads(decode_response)
-        print(response)
         if isinstance(response, dict):
             return response
         raise ValueError
