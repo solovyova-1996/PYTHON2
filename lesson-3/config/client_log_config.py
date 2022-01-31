@@ -1,6 +1,6 @@
 import os
 import sys
-from logging import getLogger, Formatter, DEBUG, StreamHandler
+from logging import getLogger, Formatter, DEBUG, StreamHandler, FileHandler
 from pathlib import Path
 from logging import handlers
 
@@ -18,9 +18,7 @@ log.setLevel(DEBUG)
 formatter = Formatter(
     "%(asctime)-30s %(levelname)s-%(levelno)-20s %(module)-28s %(message)s")
 # создаем обработчик для ротации лог-файлов один раз в день
-handler_server_log = handlers.TimedRotatingFileHandler(filename=path, when='D',
-                                                       interval=1,
-                                                       backupCount=100,encoding=ENCODING)
+handler_server_log = FileHandler(filename=path,encoding=ENCODING)
 # создаем обработчик для вывода log-сообщений на стандартный поток вывода
 handler_stream_server_log = StreamHandler(sys.stdout)
 handler_stream_server_log.setFormatter(formatter)

@@ -1,4 +1,72 @@
-2022-01-27 13:12:56,850        CRITICAL-50                   client_log_config            new_messages
-2022-01-27 13:12:56,851        ERROR-40                   client_log_config            error_message
-2022-01-27 13:12:56,851        DEBUG-10                   client_log_config            debug-messages
-2022-01-27 13:14:43,253        INFO-20                   client                       Клиент присоединился к серверу
+2022-01-31 16:03:04,713        INFO-20                   client                       Клиент присоединился к серверу
+2022-01-31 16:03:08,152        INFO-20                   client                       Клиент присоединился к серверу
+2022-01-31 16:03:12,745        INFO-20                   client                       Клиент присоединился к серверу
+2022-01-31 16:07:40,504        DEBUG-10                   decorators_log               Вызванная функцияcreate_greetings
+2022-01-31 16:07:40,507        INFO-20                   client                       Клиент присоединился к серверу
+2022-01-31 16:09:05,510        DEBUG-10                   decorators_log               Вызванная функцияcreate_greetings
+2022-01-31 16:09:05,515        INFO-20                   client                       Клиент присоединился к серверу
+2022-01-31 16:22:24,772        DEBUG-10                   decorators_log               Вызванная функция:  create_greetings параметры функции: () и {}Модуль, из которого вызвана функция: __main__None
+2022-01-31 16:22:24,773        INFO-20                   client                       Клиент присоединился к серверу
+2022-01-31 16:24:02,642        DEBUG-10                   decorators_log               Вызванная функция:  create_greetings параметры функции: () и {}Модуль, из которого вызвана функция: __main__['  File "D:\\Python_2\\Python2\\lesson-3\\client.py", line 81, in <module>\n    main()\n', '  File "D:\\Python_2\\Python2\\lesson-3\\client.py", line 65, in main\n    messages_to_server = create_greetings()\n', '  File "D:\\Python_2\\Python2\\lesson-3\\decorators_log.py", line 15, in deco\n    f\'{traceback.format_stack()}\')\n']
+2022-01-31 16:24:02,643        INFO-20                   client                       Клиент присоединился к серверу
+2022-01-31 16:25:21,710        DEBUG-10                   decorators_log               Вызванная функция:  create_greetings параметры функции: () и {}Модуль, из которого вызвана функция: __main__main()
+2022-01-31 16:25:21,711        INFO-20                   client                       Клиент присоединился к серверу
+2022-01-31 16:26:00,339        DEBUG-10                   decorators_log               Вызванная функция:  create_greetings параметры функции: () и {}Модуль, из которого вызвана функция: __main__['  File "D:\\Python_2\\Python2\\lesson-3\\client.py", line 81, in <module>\n    main()\n', '  File "D:\\Python_2\\Python2\\lesson-3\\client.py", line 65, in main\n    messages_to_server = create_greetings()\n', '  File "D:\\Python_2\\Python2\\lesson-3\\decorators_log.py", line 15, in deco\n    f\'{traceback.format_stack()}\')\n']
+2022-01-31 16:26:00,340        INFO-20                   client                       Клиент присоединился к серверу
+2022-01-31 16:26:31,064        DEBUG-10                   decorators_log               Вызванная функция:  create_greetings параметры функции: () и {}Модуль, из которого вызвана функция: __main__  File "D:\Python_2\Python2\lesson-3\client.py", line 81, in <module>
+    main()
+
+2022-01-31 16:26:31,066        INFO-20                   client                       Клиент присоединился к серверу
+2022-01-31 16:28:59,238        DEBUG-10                   decorators_log               Вызванная функция:  create_greetings параметры функции: () и {}Модуль, из которого вызвана функция: __main__main()
+2022-01-31 16:28:59,241        INFO-20                   client                       Клиент присоединился к серверу
+2022-01-31 16:30:32,401        DEBUG-10                   decorators_log               Вызванная функция:  create_greetings параметры функции: () и {}Модуль, из которого вызвана функция: ['File', '"D:\\Python_2\\Python2\\lesson-3\\client.py",', 'line', '81,', 'in', '<module>', 'main()']main()
+2022-01-31 16:30:32,402        INFO-20                   client                       Клиент присоединился к серверу
+2022-01-31 16:31:35,767        DEBUG-10                   decorators_log               Вызванная функция:  create_greetings параметры функции: () и {}Модуль, из которого вызвана функция: linemain()
+2022-01-31 16:31:35,769        INFO-20                   client                       Клиент присоединился к серверу
+2022-01-31 16:31:52,647        DEBUG-10                   decorators_log               Вызванная функция:  create_greetings параметры функции: () и {}Модуль, из которого вызвана функция: ['File', '"D:\\Python_2\\Python2\\lesson-3\\client.py",', 'line', '81,', 'in', '<module>', 'main()']main()
+2022-01-31 16:31:52,648        INFO-20                   client                       Клиент присоединился к серверу
+2022-01-31 16:32:22,363        DEBUG-10                   decorators_log               Вызванная функция:  create_greetings параметры функции: () и {}Модуль, из которого вызвана функция: linemain()
+2022-01-31 16:32:22,365        INFO-20                   client                       Клиент присоединился к серверу
+2022-01-31 16:32:39,201        DEBUG-10                   decorators_log               Вызванная функция:  create_greetings параметры функции: () и {}Модуль, из которого вызвана функция: ['File', '"D:\\Python_2\\Python2\\lesson-3\\client.py",', 'line', '81,', 'in', '<module>', 'main()']main()
+2022-01-31 16:32:39,202        INFO-20                   client                       Клиент присоединился к серверу
+2022-01-31 16:35:33,527        DEBUG-10                   decorators_log               Вызванная функция:  create_greetings параметры функции: () и {}Модуль, из которого вызвана функция: ['"D:\\Python_2\\Python2\\lesson-3\\client.py",']main()
+2022-01-31 16:35:33,529        INFO-20                   client                       Клиент присоединился к серверу
+2022-01-31 16:35:52,341        DEBUG-10                   decorators_log               Вызванная функция:  create_greetings параметры функции: () и {}Модуль, из которого вызвана функция: "D:\Python_2\Python2\lesson-3\client.py",main()
+2022-01-31 16:35:52,342        INFO-20                   client                       Клиент присоединился к серверу
+2022-01-31 16:36:53,552        DEBUG-10                   decorators_log               Вызванная функция:  create_greetings параметры функции: () и {}Модуль, из которого вызвана функция: main()
+2022-01-31 16:36:53,553        INFO-20                   client                       Клиент присоединился к серверу
+2022-01-31 16:37:05,314        DEBUG-10                   decorators_log               Вызванная функция:  create_greetings параметры функции: () и {}Модуль, из которого вызвана функция: main()
+2022-01-31 16:37:05,316        INFO-20                   client                       Клиент присоединился к серверу
+2022-01-31 16:37:35,730        DEBUG-10                   decorators_log               Вызванная функция:  create_greetings параметры функции: () и {}Модуль, из которого вызвана функция: "D:\Python_2\Python2\lesson-3\client.py",main()
+2022-01-31 16:37:35,733        INFO-20                   client                       Клиент присоединился к серверу
+2022-01-31 16:38:05,642        DEBUG-10                   decorators_log               Вызванная функция:  create_greetings параметры функции: () и {}Модуль, из которого вызвана функция: main()
+2022-01-31 16:38:05,643        INFO-20                   client                       Клиент присоединился к серверу
+2022-01-31 16:38:57,151        DEBUG-10                   decorators_log               Вызванная функция:  create_greetings параметры функции: () и {}Модуль, из которого вызвана функция: 41main()
+2022-01-31 16:38:57,152        INFO-20                   client                       Клиент присоединился к серверу
+2022-01-31 16:39:21,357        DEBUG-10                   decorators_log               Вызванная функция:  create_greetings параметры функции: () и {}Модуль, из которого вызвана функция: client.py",main()
+2022-01-31 16:39:21,358        INFO-20                   client                       Клиент присоединился к серверу
+2022-01-31 16:39:41,705        DEBUG-10                   decorators_log               Вызванная функция:  create_greetings параметры функции: () и {}Модуль, из которого вызвана функция: client.py"main()
+2022-01-31 16:39:41,706        INFO-20                   client                       Клиент присоединился к серверу
+2022-01-31 16:40:08,472        DEBUG-10                   decorators_log               Вызванная функция:  create_greetings параметры функции: () и {} Модуль, из которого вызвана функция: client.py main()
+2022-01-31 16:40:08,474        INFO-20                   client                       Клиент присоединился к серверу
+2022-01-31 17:17:57,404        DEBUG-10                   decorators_log               Вызванная функция:  create_greetings параметры функции: () и {} Модуль, из которого вызвана функция: client.py из функции main()main
+2022-01-31 17:17:57,406        INFO-20                   client                       Клиент присоединился к серверу
+2022-01-31 17:18:22,627        DEBUG-10                   decorators_log               Вызванная функция:  create_greetings параметры функции: () и {} Модуль, из которого вызвана функция: client.py из функции main()из функции main
+2022-01-31 17:18:22,628        INFO-20                   client                       Клиент присоединился к серверу
+2022-01-31 17:18:42,673        DEBUG-10                   decorators_log               Вызванная функция:  create_greetings параметры функции: () и {} Модуль, из которого вызвана функция: client.py из функции main()из функции [FrameInfo(frame=<frame at 0x0000018A3AA77090, file 'D:\\Python_2\\Python2\\lesson-3\\decorators_log.py', line 14, code deco>, filename='D:\\Python_2\\Python2\\lesson-3\\decorators_log.py', lineno=17, function='deco', code_context=["                     f'из функции {inspect.stack()}')\n"], index=0), FrameInfo(frame=<frame at 0x0000018A3AECD840, file 'D:\\Python_2\\Python2\\lesson-3\\client.py', line 65, code main>, filename='D:\\Python_2\\Python2\\lesson-3\\client.py', lineno=65, function='main', code_context=['    messages_to_server = create_greetings()\n'], index=0), FrameInfo(frame=<frame at 0x0000018A3A1E1670, file 'D:\\Python_2\\Python2\\lesson-3\\client.py', line 81, code <module>>, filename='D:\\Python_2\\Python2\\lesson-3\\client.py', lineno=81, function='<module>', code_context=['    main()\n'], index=0)]
+2022-01-31 17:18:42,675        INFO-20                   client                       Клиент присоединился к серверу
+2022-01-31 17:19:42,296        DEBUG-10                   decorators_log               Вызванная функция:  create_greetings параметры функции: () и {} Модуль, из которого вызвана функция: client.py из функции main()
+2022-01-31 17:19:42,300        INFO-20                   client                       Клиент присоединился к серверу
+2022-01-31 17:32:42,432        DEBUG-10                   client                       Вызванная функция:  create_greetings параметры функции: () и {} Модуль, из которого вызвана функция: client.py из функции main()Вызов из функции main
+2022-01-31 17:32:42,466        INFO-20                   client                       Клиент присоединился к серверу
+2022-01-31 17:34:37,400        DEBUG-10                   client                       Вызванная функция:  create_greetings параметры функции: () и {} Модуль, из которого вызвана функция: __main__ из функции main()Вызов из функции main
+2022-01-31 17:34:37,405        INFO-20                   client                       Клиент присоединился к серверу
+2022-01-31 17:41:07,579        DEBUG-10                   client                       Вызванная функция:  create_greetings параметры функции: () и {} Модуль, из которого вызвана функция: client.py Вызов из функции main
+2022-01-31 17:41:07,582        INFO-20                   client                       Клиент присоединился к серверу
+2022-01-31 17:41:07,585        DEBUG-10                   client                       LogClass:Вызванная функция:  handler_response_from_server параметры функции: ({'response': 200},) и {} Модуль, из которого вызвана функция: client.py Вызов из функции main
+2022-01-31 17:44:38,533        DEBUG-10                   client                       Вызванная функция:  create_greetings параметры функции: () и {} Модуль, из которого вызвана функция: client.py Вызов из функции main
+2022-01-31 17:44:38,592        INFO-20                   client                       Клиент присоединился к серверу
+2022-01-31 17:44:38,595        DEBUG-10                   client                       LogClass:Вызванная функция:  handler_response_from_server параметры функции: ({'response': 200},) и {} Модуль, из которого вызвана функция: client.py Вызов из функции main
+2022-01-31 17:44:50,601        DEBUG-10                   client                       Вызванная функция:  create_greetings параметры функции: () и {} Модуль, из которого вызвана функция: client.py Вызов из функции main
+2022-01-31 17:44:50,605        INFO-20                   client                       Клиент присоединился к серверу
+2022-01-31 17:44:50,608        DEBUG-10                   client                       LogClass:Вызванная функция:  handler_response_from_server параметры функции: ({'response': 200},) и {} Модуль, из которого вызвана функция: client.py Вызов из функции main

@@ -4,7 +4,7 @@ from logging import getLogger
 from socket import socket, AF_INET, SOCK_STREAM
 from time import time
 from general.utils import send_mesages, get_messages
-
+from decorators_log import log_func, LogClass
 from general.variables import ACTION, GREETINGS, TIME, USER, ACCOUNT_NAME, \
     RESPONSE, ERROR, DEFAULT_IP_ADDRESS, DEFAULT_PORT
 
@@ -13,11 +13,13 @@ from config import client_log_config
 log = getLogger('client')
 
 
+@log_func
 def create_greetings(account_name='Guest'):
     # генерация запроса о присутствии клиента
     return {ACTION: GREETINGS, TIME: time(), USER: {ACCOUNT_NAME: account_name}}
 
 
+@LogClass()
 def handler_response_from_server(message):
     if RESPONSE in message:
         if message[RESPONSE] == 200:
