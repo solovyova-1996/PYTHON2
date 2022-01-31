@@ -8,10 +8,12 @@ from general.variables import ACTION, GREETINGS, TIME, USER, ACCOUNT_NAME, \
     RESPONSE, ERROR, PORT_ARGV, DEFAULT_PORT, IP_ARGV, MAX_CONNECTIONS
 
 from config import server_log_config
+from decorators_log import log_func
 
 log = getLogger('server')
 
 
+@log_func
 def handler_client_messages(messages):
     # проверка есть ли в сообщении(словаре) ключи: 'action', 'time', 'user' и что находиться в этих полях
     if ACTION in messages and messages[
@@ -53,7 +55,8 @@ def main():
         listen_ip_addr = sys.argv[
             sys.argv.index(IP_ARGV) + 1] if IP_ARGV in sys.argv else ''
     except IndexError:
-        log.critical('Указаны неверные параметры при запуске сервера.После параметра \'a\'- необходимо указать адрес, который будет слушать сервер.Process finished with exit code 1')
+        log.critical(
+            'Указаны неверные параметры при запуске сервера.После параметра \'a\'- необходимо указать адрес, который будет слушать сервер.Process finished with exit code 1')
         # print('После параметра \'a\'- необходимо указать адрес, который будет слушать сервер.')
         sys.exit(1)
     # создаем сокет AF_INET-сетевой, SOCK_STREAM - тип сокета потоковый
@@ -75,7 +78,7 @@ def main():
             # отпра правляет данные
             send_mesages(client, response)
             client.close()
-        except (JSONDecodeError,TypeError,ValueError):
+        except (JSONDecodeError, TypeError, ValueError):
 
             log.warning('Принято некорретное сообщение от клиента.')
             # print('Принято некорретное сообщение от клиента.')
