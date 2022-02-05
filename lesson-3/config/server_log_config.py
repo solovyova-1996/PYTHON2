@@ -30,7 +30,7 @@ handler_server_log.setFormatter(formatter)
 handler_server_log.setLevel(DEBUG)
 # добавляем обработчик к регистратору
 log.addHandler(handler_server_log)
-log.addHandler(handler_server_log_stdout)
+# log.addHandler(handler_server_log_stdout)
 
 if __name__ == '__main__':
     log.critical('new_messages')

@@ -1,4 +1,4 @@
-DEFAULT_PORT = 7777
+DEFAULT_PORT = 7771
 DEFAULT_IP_ADDRESS = '127.0.0.1'
 MAX_CONNECTIONS = 5
 MAX_PACKAGE_SIZE = 1024
@@ -13,3 +13,6 @@ ERROR = 'error'
 PORT_ARGV = '-p'
 IP_ARGV = '-a'
 GUEST = 'Guest'
+MESSAGE = 'message'
+MESSAGE_TEXT = 'mess_text'
+SENDER = 'sender'
