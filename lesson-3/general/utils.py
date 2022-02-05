@@ -1,4 +1,6 @@
 import json
+
+from errors import IncorrectDataRecivedError, NonDictInputError
 from .variables import MAX_PACKAGE_SIZE, ENCODING
 
 
@@ -16,11 +18,13 @@ def get_messages(client):
         response = json.loads(decode_response)
         if isinstance(response, dict):
             return response
-        raise ValueError
-    raise ValueError
+        raise IncorrectDataRecivedError
+    raise IncorrectDataRecivedError
 
 
 def send_mesages(sock, messages):
+    if not isinstance(messages, dict):
+        raise NonDictInputError
     # сериализуем данные переданные в сообщении в json
     json_messages = json.dumps(messages)
     # кодируем данные в байты

@@ -17,18 +17,16 @@ from config import client_log_config
 
 log = getLogger('client')
 
-
 @log_func
 def handler_message_from_users(message):
     if ACTION in message and message[
         ACTION] == MESSAGE and SENDER in message and MESSAGE_TEXT in message:
         print(
-            f'Получено сообщение от пользователя {message[SENDER]}:\n{message[MESSAGE_TEXT]}')
+            f'Получено сообщение от пользователя{message[SENDER]}:\n{message[MESSAGE_TEXT]}')
         log.info(
-            f'Получено сообщение от пользователя {message[SENDER]}:\n{message[MESSAGE_TEXT]}')
+            f'Получено сообщение от пользователя{message[SENDER]}:\n{message[MESSAGE_TEXT]}')
     else:
         log.error(f'От сервера получено некорректное сообщение : {message}')
-
 
 @log_func
 def create_message(sock, account_name='Guest'):
@@ -51,7 +49,6 @@ def create_greetings(account_name='Guest'):
 
 @LogClass()
 def handler_response_from_server(message):
-    # print(message)
     log.debug(f'Разбор приветственного сообщения от сервера: {message}')
     if RESPONSE in message:
         if message[RESPONSE] == 200:
@@ -59,7 +56,18 @@ def handler_response_from_server(message):
         elif message[RESPONSE] == 400:
             raise ServerError(f'400 : {message[ERROR]}')
     raise ReqFieldMissingError(RESPONSE)
-
+    # if RESPONSE in message:
+    #     if message[RESPONSE] == 200:
+    #         log.info('Клиент присоединился к серверу')
+    #         return 'Код ответа:200 - "ОК"'
+    #     log.error('Клиент не присоединился к серверу')
+    #     try:
+    #         return f'Код ответа:400 : {message[ERROR]}'
+    #     except KeyError:
+    #         log.error(
+    #             'Некоректный ответ от сервера при попытке клиета подключиться')
+    # log.error('Некоректный ответ от сервера при попытке клиета подключиться')
+    # raise ValueError
 
 @log_func
 def argv_parser():
@@ -67,11 +75,11 @@ def argv_parser():
     argv_pars = ArgumentParser()
     # создаем аргументы парсера - порт
     argv_pars.add_argument('port', default=DEFAULT_PORT,
-                           help='port on which to run', type=int, nargs='?')
+                           help='port on which to run', type=int,nargs='?')
     # создаем аргумент парсера ip адресс
-    argv_pars.add_argument('addr', default=DEFAULT_IP_ADDRESS, nargs='?')
+    argv_pars.add_argument('addr', default=DEFAULT_IP_ADDRESS,nargs='?')
     # создаем аргумент парсера mode (listen or send)
-    argv_pars.add_argument('-m', '--mode', default='listen', nargs='?')
+    argv_pars.add_argument('-m', '--mode', default='listen',nargs='?')
     # передаем парсеру параметры командной строки
     IP_and_port_and_mode = argv_pars.parse_args(sys.argv[1:])
     server_port = IP_and_port_and_mode.port
@@ -86,40 +94,36 @@ def argv_parser():
         sys.exit(1)
     if client_mode not in ('listen', 'send'):
         log.critical(
-            f'В параметре mode указан несуществующий режим работы {client_mode}, список существующих режимов: "listen","send" ')
+            f'В параметре mode указан несуществующий режим работы{client_mode}, список существующих режимов: "listen","send" ')
 
     return server_ip_addr, server_port, client_mode
 
 
 def main():
     server_ip_addr, server_port, client_mode = argv_parser()
-    log.info(
-        f'Запущен клиент с ip-адресом{server_ip_addr}, порт:{server_port}, с режимом работы:{client_mode}')
+    log.info(f'Запущен клиент с ip-адресом{server_ip_addr},порт:{server_port}, с режимом работы:{client_mode}')
     try:
-        # создаем сетевой потоковый сокет
+    # создаем сетевой потоковый сокет
         sock_1 = socket(AF_INET, SOCK_STREAM)
-        # устанавливаем соединение с сокетом
-        # print(server_ip_addr, server_port)
+    # устанавливаем соединение с сокетом
+    # print(server_ip_addr, server_port)
         sock_1.connect((server_ip_addr, server_port))
-        # создаем сообщение о присутствии клмента на сервере
+    # создаем сообщение о присутствии клмента на сервере
         messages_to_server = create_greetings()
 
-        # кодируем данные в байты и отправляем на сервер
+    # кодируем данные в байты и отправляем на сервер
         send_mesages(sock_1, messages_to_server)
         answer = handler_response_from_server(get_messages(sock_1))
-        log.info(
-            f'Установлено соединение с сервером. Ответ от сервера {answer}')
+        log.info(f'Установлено соединение с сервером. Ответ от сервера {answer}')
         print('Соединение с сервером установлено')
     except json.JSONDecodeError:
         log.error('Не удалось декодировать полученную Json строку.')
         sys.exit(1)
     except ServerError as error:
-        log.error(
-            f'При установке соединения сервер вернул ошибку: {error.text}')
+        log.error(f'При установке соединения сервер вернул ошибку: {error.text}')
         sys.exit(1)
     except ReqFieldMissingError as missing_error:
-        log.error(
-            f'В ответе сервера отсутствует необходимое поле {missing_error.missing_field}')
+        log.error(f'В ответе сервера отсутствует необходимое поле {missing_error.missing_field}')
         sys.exit(1)
     except ConnectionRefusedError:
         log.critical(
@@ -139,21 +143,41 @@ def main():
             if client_mode == 'send':
                 try:
                     send_mesages(sock_1, create_message(sock_1))
-                except (
-                ConnectionResetError, ConnectionError, ConnectionAbortedError):
-                    log.error(
-                        f'Соединение с сервером {server_ip_addr} было потеряно.')
+                except (ConnectionResetError, ConnectionError, ConnectionAbortedError):
+                    log.error(f'Соединение с сервером {server_ip_addr} было потеряно.')
                     sys.exit(1)
 
             # Режим работы приём:
             if client_mode == 'listen':
                 try:
-                    handler_message_from_users(get_messages(sock_1))
-                except (
-                ConnectionResetError, ConnectionError, ConnectionAbortedError):
-                    log.error(
-                        f'Соединение с сервером {server_ip_addr} было потеряно.')
+                    handler_response_from_server(get_messages(sock_1))
+                except (ConnectionResetError, ConnectionError, ConnectionAbortedError):
+                    log.error(f'Соединение с сервером {server_ip_addr} было потеряно.')
                     sys.exit(1)
+    # except (ValueError, JSONDecodeError):
+    #     log.error('Не удалось декодировать сообщение сервера.')
+    #     sys.exit(1)
+    # else:
+    #     if client_mode == 'send':
+    #         print('Режим работы - отправка сообщений.')
+    #     else:
+    #         print('Режим работы - приём сообщений.')
+    #     while True:
+    #         # режим работы - отправка сообщений
+    #         if client_mode == 'send':
+    #             try:
+    #                 send_mesages(sock_1, create_message(sock_1))
+    #             except (ValueError, JSONDecodeError):
+    #                 log.error(f'Соединение с сервером {server_ip_addr} было потеряно.')
+    #                 sys.exit(1)
+    #
+    #         # Режим работы приём:
+    #         if client_mode == 'listen':
+    #             try:
+    #                 handler_response_from_server(get_messages(sock_1))
+    #             except (ValueError, JSONDecodeError):
+    #                 log.error(f'Соединение с сервером {server_ip_addr} было потеряно.')
+    #                 sys.exit(1)
 
 
 if __name__ == '__main__':
