@@ -147,3 +147,34 @@
 2022-02-05 16:32:02,354 INFO(20) server       Клиент- Guest подключился к серверу(отправил корректный запрос)
 2022-02-05 16:32:02,354 DEBUG(10) server       Вызванная функция:  handler_client_messages параметры функции: ({'action': 'presense', 'time': 1644057121.8385224, 'user': {'account_name': 'Guest'}}, [], <socket.socket fd=384, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7771), raddr=('127.0.0.1', 50193)>) и {} Модуль, из которого вызвана функция: server.py Вызов из функции main
 2022-02-05 16:32:07,963 DEBUG(10) server       Вызванная функция:  handler_client_messages параметры функции: ({'action': 'message', 'time': 1644057127.8228686, 'account_name': 'Guest', 'mess_text': 'ghbdtn'}, [('Guest', 'ghbdtn')], <socket.socket fd=384, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7771), raddr=('127.0.0.1', 50193)>) и {} Модуль, из которого вызвана функция: server.py Вызов из функции main
+2022-02-05 16:42:35,922 INFO(20) server       Запущен сервер, порт для подключения:7771, IP-адресс для подключения: 
+2022-02-05 16:42:36,062 INFO(20) server       Установлено соединение с ('127.0.0.1', 50314)
+2022-02-05 16:42:36,109 INFO(20) server       Установлено соединение с ('127.0.0.1', 50315)
+2022-02-05 16:42:36,109 INFO(20) server       Клиент- Guest подключился к серверу(отправил корректный запрос)
+2022-02-05 16:42:36,265 DEBUG(10) server       Вызванная функция:  handler_client_messages параметры функции: ({'action': 'presense', 'time': 1644057756.0626893, 'user': {'account_name': 'Guest'}}, [], <socket.socket fd=360, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7771), raddr=('127.0.0.1', 50314)>) и {} Модуль, из которого вызвана функция: server.py Вызов из функции main
+2022-02-05 16:42:36,265 INFO(20) server       Установлено соединение с ('127.0.0.1', 50316)
+2022-02-05 16:42:36,265 INFO(20) server       Клиент- Guest подключился к серверу(отправил корректный запрос)
+2022-02-05 16:42:36,265 DEBUG(10) server       Вызванная функция:  handler_client_messages параметры функции: ({'action': 'presense', 'time': 1644057756.1095674, 'user': {'account_name': 'Guest'}}, [], <socket.socket fd=332, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7771), raddr=('127.0.0.1', 50315)>) и {} Модуль, из которого вызвана функция: server.py Вызов из функции main
+2022-02-05 16:42:36,265 INFO(20) server       Клиент- Guest подключился к серверу(отправил корректный запрос)
+2022-02-05 16:42:36,281 DEBUG(10) server       Вызванная функция:  handler_client_messages параметры функции: ({'action': 'presense', 'time': 1644057756.218949, 'user': {'account_name': 'Guest'}}, [], <socket.socket fd=408, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7771), raddr=('127.0.0.1', 50316)>) и {} Модуль, из которого вызвана функция: server.py Вызов из функции main
+2022-02-05 16:42:36,281 INFO(20) server       Установлено соединение с ('127.0.0.1', 50317)
+2022-02-05 16:42:36,281 INFO(20) server       Клиент- Guest подключился к серверу(отправил корректный запрос)
+2022-02-05 16:42:36,281 DEBUG(10) server       Вызванная функция:  handler_client_messages параметры функции: ({'action': 'presense', 'time': 1644057756.234576, 'user': {'account_name': 'Guest'}}, [], <socket.socket fd=392, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7771), raddr=('127.0.0.1', 50317)>) и {} Модуль, из которого вызвана функция: server.py Вызов из функции main
+2022-02-05 16:42:36,281 INFO(20) server       Установлено соединение с ('127.0.0.1', 50318)
+2022-02-05 16:42:36,281 INFO(20) server       Клиент- Guest подключился к серверу(отправил корректный запрос)
+2022-02-05 16:42:36,297 DEBUG(10) server       Вызванная функция:  handler_client_messages параметры функции: ({'action': 'presense', 'time': 1644057756.250201, 'user': {'account_name': 'Guest'}}, [], <socket.socket fd=400, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7771), raddr=('127.0.0.1', 50318)>) и {} Модуль, из которого вызвана функция: server.py Вызов из функции main
+2022-02-05 16:42:36,328 INFO(20) server       Установлено соединение с ('127.0.0.1', 50319)
+2022-02-05 16:42:36,437 INFO(20) server       Установлено соединение с ('127.0.0.1', 50313)
+2022-02-05 16:42:36,437 INFO(20) server       Клиент- Guest подключился к серверу(отправил корректный запрос)
+2022-02-05 16:42:36,437 DEBUG(10) server       Вызванная функция:  handler_client_messages параметры функции: ({'action': 'presense', 'time': 1644057756.3283334, 'user': {'account_name': 'Guest'}}, [], <socket.socket fd=412, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7771), raddr=('127.0.0.1', 50319)>) и {} Модуль, из которого вызвана функция: server.py Вызов из функции main
+2022-02-05 16:42:36,953 INFO(20) server       Клиент- Guest подключился к серверу(отправил корректный запрос)
+2022-02-05 16:42:36,953 DEBUG(10) server       Вызванная функция:  handler_client_messages параметры функции: ({'action': 'presense', 'time': 1644057756.437843, 'user': {'account_name': 'Guest'}}, [], <socket.socket fd=404, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7771), raddr=('127.0.0.1', 50313)>) и {} Модуль, из которого вызвана функция: server.py Вызов из функции main
+2022-02-05 16:42:43,093 INFO(20) server       Клиент ('127.0.0.1', 50313) отключился от сервера.
+2022-02-05 16:42:45,634 INFO(20) server       Клиент ('127.0.0.1', 50317) отключился от сервера.
+2022-02-05 16:42:51,807 DEBUG(10) server       Вызванная функция:  handler_client_messages параметры функции: ({'action': 'message', 'time': 1644057771.6987317, 'account_name': 'Guest', 'mess_text': 'Прив'}, [('Guest', 'Прив')], <socket.socket fd=412, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7771), raddr=('127.0.0.1', 50319)>) и {} Модуль, из которого вызвана функция: server.py Вызов из функции main
+2022-02-05 16:42:56,938 INFO(20) server       Клиент ('127.0.0.1', 50314) отключился от сервера.
+2022-02-05 16:42:57,939 INFO(20) server       Клиент ('127.0.0.1', 50315) отключился от сервера.
+2022-02-05 16:43:14,021 INFO(20) server       Клиент ('127.0.0.1', 50172) отключился от сервера.
+2022-02-05 16:43:15,537 INFO(20) server       Клиент ('127.0.0.1', 50174) отключился от сервера.
+2022-02-05 16:43:16,568 INFO(20) server       Клиент ('127.0.0.1', 50175) отключился от сервера.
+2022-02-05 16:43:17,584 INFO(20) server       Клиент ('127.0.0.1', 50171) отключился от сервера.
