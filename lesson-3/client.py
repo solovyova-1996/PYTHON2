@@ -4,14 +4,15 @@ from argparse import ArgumentParser
 from json import JSONDecodeError
 from logging import getLogger
 from socket import socket, AF_INET, SOCK_STREAM
-from time import time
+from time import time, sleep
+import threading
 
-from errors import ServerError, ReqFieldMissingError
+from errors import ServerError, ReqFieldMissingError, IncorrectDataRecivedError
 from general.utils import send_mesages, get_messages
 from decorators_log import log_func, LogClass
 from general.variables import ACTION, GREETINGS, TIME, USER, ACCOUNT_NAME, \
     RESPONSE, ERROR, DEFAULT_IP_ADDRESS, DEFAULT_PORT, MESSAGE_TEXT, MESSAGE, \
-    SENDER
+    SENDER, EXIT, DESTINATION
 
 from config import client_log_config
 
@@ -19,28 +20,85 @@ log = getLogger('client')
 
 
 @log_func
-def handler_message_from_users(message):
-    if ACTION in message and message[
-        ACTION] == MESSAGE and SENDER in message and MESSAGE_TEXT in message:
-        print(
-            f'Получено сообщение от пользователя {message[SENDER]}:\n{message[MESSAGE_TEXT]}')
-        log.info(
-            f'Получено сообщение от пользователя {message[SENDER]}:\n{message[MESSAGE_TEXT]}')
-    else:
-        log.error(f'От сервера получено некорректное сообщение : {message}')
+def print_info_help():
+    print('''
+Привет!!! ты находишься в консольном мессенжере
+Команды:
+message - отправка сообщения
+help - вывести подсказки
+exit - выйти
+
+    ''')
+
+
+def create_exit_message(account_name):
+    '''
+    Создает сообщение о выходе из мессенжера
+    :param account_name:
+    :return:
+    '''
+    return {ACTION: EXIT, TIME: time(), ACCOUNT_NAME: account_name}
+
+
+@log_func
+def user_interaction(sock, username):
+    print_info_help()
+    while True:
+        command = input('Введите команду:  \n')
+        if command == 'message':
+            create_message(sock, username)
+        elif command == 'help':
+            print_info_help()
+        elif command == 'exit':
+            message_exit = create_exit_message(username)
+            send_mesages(sock, message_exit)
+            param = {'username': username}
+            log.info('Пользователь %(username)d вышел из мессенжера', param)
+            sleep(0.5)
+            break
+        else:
+            print(
+                'Введенная команда недоступна. Введите help для просмотра доступных комманд')
+
+
+@log_func
+def handler_message_from_users(sock, username):
+    while True:
+        try:
+            message = get_messages(sock)
+            if ACTION in message and message[
+                ACTION] == MESSAGE and SENDER in message and MESSAGE_TEXT in message and DESTINATION in message and \
+                    message[DESTINATION] == username:
+                print(
+                    f'Получено сообщение от пользователя {message[SENDER]}:\n{message[MESSAGE_TEXT]}')
+                log.info(
+                    f'Получено сообщение от пользователя {message[SENDER]}:\n{message[MESSAGE_TEXT]}')
+            else:
+                log.error(
+                    f'От сервера получено некорректное сообщение : {message}')
+        except IncorrectDataRecivedError:
+            log.error(f'Не удалось декодировать полученное сообщение.')
+        except (OSError, ConnectionError, ConnectionAbortedError,
+                ConnectionResetError, json.JSONDecodeError):
+            log.critical(f'Потеряно соединение с сервером.')
+            break
 
 
 @log_func
 def create_message(sock, account_name='Guest'):
-    message = input('Введите сообщение, для завершения работы введите - stop: ')
-    if message == 'stop':
-        sock.close()
-        log.info('Пользователь завершил работу')
-        sys.exit(0)
-    message_create = {ACTION: MESSAGE, TIME: time(), ACCOUNT_NAME: account_name,
-                      MESSAGE_TEXT: message}
+    to_user = input(
+        'Введите имя пользователя, которому хотите отправить сообщение: ')
+    message = input('Введите сообщение: ')
+
+    message_create = {ACTION: MESSAGE, TIME: time(), SENDER: account_name,
+                      DESTINATION: to_user, MESSAGE_TEXT: message}
     log.debug(f'Создано сообщение {message_create}')
-    return message_create
+    try:
+        send_mesages(sock, message_create)
+        log.info(f'Отправлено сообщение({message}) пользователю:{to_user}')
+    except:
+        log.critical('Потеряно соединение с сервером')
+        sys.exit(1)
 
 
 @log_func
@@ -71,12 +129,12 @@ def argv_parser():
     # создаем аргумент парсера ip адресс
     argv_pars.add_argument('addr', default=DEFAULT_IP_ADDRESS, nargs='?')
     # создаем аргумент парсера mode (listen or send)
-    argv_pars.add_argument('-m', '--mode', default='listen', nargs='?')
+    argv_pars.add_argument('-n', '--name', nargs='?')
     # передаем парсеру параметры командной строки
     IP_and_port_and_mode = argv_pars.parse_args(sys.argv[1:])
     server_port = IP_and_port_and_mode.port
     server_ip_addr = IP_and_port_and_mode.addr
-    client_mode = IP_and_port_and_mode.mode
+    client_name = IP_and_port_and_mode.name
 
     if server_port < 1024 or server_port > 65535:
         param = {'server_port': server_port}
@@ -84,17 +142,17 @@ def argv_parser():
             'Номер порта не удовлетворяет условию -от 1024 до 65535.Переданный порт- %(server_port)d.Process finished with exit code 1',
             param)
         sys.exit(1)
-    if client_mode not in ('listen', 'send'):
-        log.critical(
-            f'В параметре mode указан несуществующий режим работы {client_mode}, список существующих режимов: "listen","send" ')
 
-    return server_ip_addr, server_port, client_mode
+    return server_ip_addr, server_port, client_name
 
 
 def main():
-    server_ip_addr, server_port, client_mode = argv_parser()
+    server_ip_addr, server_port, client_name = argv_parser()
+    print(client_name)
+    if not client_name:
+        client_name = input('Введите имя поьзователя')
     log.info(
-        f'Запущен клиент с ip-адресом{server_ip_addr}, порт:{server_port}, с режимом работы:{client_mode}')
+        f'Запущен клиент с ip-адресом{server_ip_addr}, порт:{server_port}, с именем:{client_name}')
     try:
         # создаем сетевой потоковый сокет
         sock_1 = socket(AF_INET, SOCK_STREAM)
@@ -102,7 +160,7 @@ def main():
         # print(server_ip_addr, server_port)
         sock_1.connect((server_ip_addr, server_port))
         # создаем сообщение о присутствии клмента на сервере
-        messages_to_server = create_greetings()
+        messages_to_server = create_greetings(client_name)
 
         # кодируем данные в байты и отправляем на сервер
         send_mesages(sock_1, messages_to_server)
@@ -128,32 +186,17 @@ def main():
         sys.exit(1)
     else:
         # Если соединение с сервером установлено корректно,
-        # начинаем обмен с ним, согласно требуемому режиму.
-        # основной цикл прогрммы:
-        if client_mode == 'send':
-            print('Режим работы - отправка сообщений.')
-        else:
-            print('Режим работы - приём сообщений.')
-        while True:
-            # режим работы - отправка сообщений
-            if client_mode == 'send':
-                try:
-                    send_mesages(sock_1, create_message(sock_1))
-                except (
-                ConnectionResetError, ConnectionError, ConnectionAbortedError):
-                    log.error(
-                        f'Соединение с сервером {server_ip_addr} было потеряно.')
-                    sys.exit(1)
-
-            # Режим работы приём:
-            if client_mode == 'listen':
-                try:
-                    handler_message_from_users(get_messages(sock_1))
-                except (
-                ConnectionResetError, ConnectionError, ConnectionAbortedError):
-                    log.error(
-                        f'Соединение с сервером {server_ip_addr} было потеряно.')
-                    sys.exit(1)
+        # создаем 2 потока- один принимает сообщение, другой - отправляет
+        # поток принимающий сообщений
+        receive_mess = threading.Thread(target=handler_message_from_users,
+            args=(sock_1, client_name))
+        # receive_mess.daemon = True
+        receive_mess.start()
+        send_mess = threading.Thread(target=user_interaction,
+                                     args=(sock_1, client_name))
+        # send_mess.daemon=True
+        send_mess.start()
+        log.debug('Потоки запущены')
 
 
 if __name__ == '__main__':
