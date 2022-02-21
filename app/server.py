@@ -16,7 +16,7 @@ from decorators_log import log_func
 from metaclasses import ServerVerifier
 
 log = getLogger('server')
-from descriptors import Port
+from descriptors import Port, Host
 
 
 def argv_parser():
@@ -35,6 +35,7 @@ def argv_parser():
 
 class Server(metaclass=ServerVerifier):
     port = Port()
+    ip = Host()
 
     def __init__(self, listen_ip_addr, listen_port):
         self.port = listen_port
