@@ -20,7 +20,7 @@ from metaclasses import ClientVerifier
 
 log = getLogger('client')
 
-from server_database import ServerDatabase
+
 @log_func
 def argv_parser():
     # создаем парсер командной строки
