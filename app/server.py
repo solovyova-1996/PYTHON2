@@ -68,7 +68,7 @@ class Server(threading.Thread, metaclass=ServerVerifier):
         self.sock = sock_1
         self.sock.listen(MAX_CONNECTIONS)
 
-    def handler_messages(self, message, names_clients, listen_socks):
+    def handler_messages(self, message,  listen_socks):
         '''
         Функция проверяет есть ли на сервере клиент, которому отправляется сообщение
         :param message: словарь сообщения
@@ -76,28 +76,28 @@ class Server(threading.Thread, metaclass=ServerVerifier):
         :param listen_socks: список клиентов ожидающих сообщения
         :return:
         '''
-        if message[DESTINATION] in names_clients and names_clients[
+        if message[DESTINATION] in self.names_clients and  self.names_clients[
             message[DESTINATION]] in listen_socks:
-            send_mesages(names_clients[message[DESTINATION]], message)
+            send_mesages( self.names_clients[message[DESTINATION]], message)
             log.info(
                 f'Отправлено сообщение пользователю - {message[DESTINATION]} от - {message[SENDER]} ')
-        elif message[DESTINATION] in names_clients and names_clients[
+        elif message[DESTINATION] in  self.names_clients and  self.names_clients[
             message[DESTINATION]] not in listen_socks:
             log.error(
-                f'Соединение с {names_clients[message[DESTINATION]]} потеряно')
+                f'Соединение с { self.names_clients[message[DESTINATION]]} потеряно')
             raise ConnectionError
         else:
             log.error(
                 f'Отправка сообщения незарегистрированому пользователю невозможна. Пользователь{message[DESTINATION]} - не зарегистрирован на сервере')
 
-    def handler_client_messages(self, messages, messages_list, client,
-                                clients_list, names_clients):
+    def handler_client_messages(self, messages, client,
+                                ):
         # проверка если сообщение о присутствии принимаем и отвечаем
         if ACTION in messages and messages[
             ACTION] == GREETINGS and TIME in messages and USER in messages:
-            if messages[USER][ACCOUNT_NAME] not in names_clients.keys():
+            if messages[USER][ACCOUNT_NAME] not in  self.names_clients.keys():
                 # если клиента нет в словаре добавляем его имя и сокет
-                names_clients[messages[USER][ACCOUNT_NAME]] = client
+                self.names_clients[messages[USER][ACCOUNT_NAME]] = client
                 send_mesages(client, RESPONSE_200)
                 ip, port = client.getpeername()
                 self.database.user_login(messages[USER][ACCOUNT_NAME], ip, port)
@@ -108,19 +108,19 @@ class Server(threading.Thread, metaclass=ServerVerifier):
                 response = RESPONSE_400
                 response[ERROR] = 'Имя пользователя занято'
                 send_mesages(client, response)
-                clients_list.remove(client)
+                self.clients_list.remove(client)
                 client.close()
             return
         elif ACTION in messages and messages[
             ACTION] == MESSAGE and TIME in messages and MESSAGE_TEXT in messages and SENDER in messages and DESTINATION:
-            messages_list.append(messages)
+            self.messages_list.append(messages)
             return
         elif ACTION in messages and messages[
             ACTION] == EXIT and ACCOUNT_NAME in messages:
             self.database.user_logout(messages[ACCOUNT_NAME])
-            clients_list.remove(names_clients[messages[ACCOUNT_NAME]])
-            names_clients[messages[ACCOUNT_NAME]].close()
-            del names_clients[messages[ACCOUNT_NAME]]
+            self.clients_list.remove(self.names_clients[messages[ACCOUNT_NAME]])
+            self.names_clients[messages[ACCOUNT_NAME]].close()
+            del self.names_clients[messages[ACCOUNT_NAME]]
             return
         else:
             response = RESPONSE_400
