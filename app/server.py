@@ -1,10 +1,14 @@
+import os
 import sys
 import threading
 from logging import getLogger
 from argparse import ArgumentParser
 import socket
-from select import select
 
+from PyQt5.QtCore import QTimer
+from PyQt5.QtWidgets import QApplication, QMessageBox
+from select import select
+from configparser import ConfigParser
 from general.utils import get_messages, send_mesages
 from general.variables import ACTION, GREETINGS, TIME, USER, ACCOUNT_NAME, \
     ERROR, DEFAULT_PORT, MAX_CONNECTIONS, MESSAGE, MESSAGE_TEXT, SENDER, \
@@ -12,20 +16,25 @@ from general.variables import ACTION, GREETINGS, TIME, USER, ACCOUNT_NAME, \
 
 from config import server_log_config
 from decorators_log import log_func
+from gui_server import GeneralWindow, HistoryWindow, ConfigWindow
 from metaclasses import ServerVerifier
 from server_database import ServerDatabase
+from gui_server import gui_create_model_tabel
 
 log = getLogger('server')
 from descriptors import Port, Host
 
+new_connect = False
+conflag_lock = threading.Lock()
 
-def argv_parser():
+
+def argv_parser(port_default, ip_default):
     # создаем парсер командной строки
     argv_pars = ArgumentParser()
     # создаем аргументы парсера - порт
-    argv_pars.add_argument('-p', default=DEFAULT_PORT, type=int)
+    argv_pars.add_argument('-p', default=port_default, type=int,nargs='?')
     # создаем аргумент парсера ip адресс
-    argv_pars.add_argument('-a', default='127.0.0.1')
+    argv_pars.add_argument('-a', default=ip_default,nargs='?')
     # передаем парсеру параметры командной строки
     IP_and_port = argv_pars.parse_args(sys.argv[1:])
     listen_port = IP_and_port.p
@@ -35,7 +44,7 @@ def argv_parser():
 
 class Server(threading.Thread, metaclass=ServerVerifier):
     port = Port()
-    ip = Host()
+    # ip = Host()
 
     def __init__(self, listen_ip_addr, listen_port, database):
         self.port = listen_port
@@ -58,7 +67,6 @@ class Server(threading.Thread, metaclass=ServerVerifier):
         sock_1.settimeout(0.5)
         self.sock = sock_1
         self.sock.listen(MAX_CONNECTIONS)
-
 
     def handler_messages(self, message, names_clients, listen_socks):
         '''
@@ -213,15 +221,87 @@ class Server(threading.Thread, metaclass=ServerVerifier):
 
 
 def main():
-    ip, port = argv_parser()
-    database = ServerDatabase()
+    config = ConfigParser()
+    directory = os.path.dirname(os.path.realpath(__file__))
+    config.read(f'{directory}/{"server.ini"}')
+
+    # ip, port = argv_parser()
+    ip, port = argv_parser(config['SETTINGS']['default_port'],
+        config['SETTINGS']['listen_address'])
+    print(ip,port)
+    database = ServerDatabase(os.path.join(config['SETTINGS']['database_path'],
+        config['SETTINGS']['database_file']))
     server = Server(ip, port, database)
     server.daemon = True
 
+    server.start()
     log.info(
         f'Запущен сервер, порт для подключения:{port}, IP-адресс для подключения: {ip}')
-    server.start()
-    server.user_interaction()
+    # server.user_interaction()
+    app = QApplication(sys.argv)
+    window = GeneralWindow()
+    window.statusBar().showMessage('Сервер запущен')
+    window.active_user_list.setModel(gui_create_model_tabel(database))
+    window.active_user_list.resizeColumnsToContents()
+    window.active_user_list.resizeRowsToContents()
+
+    def update_data_list():
+        global new_connect
+        if new_connect:
+            window.active_user_list.setModel(gui_create_model_tabel(database))
+            window.active_user_list.resizeColumnsToContents()
+            window.active_user_list.resizeRowsToContents()
+            with conflag_lock:
+                new_connect = False
+
+    def show_statics_users():
+        global stat_window
+        stat_window = HistoryWindow()
+        stat_window.history_table.setModel(gui_create_model_tabel(database))
+        stat_window.history_table.resizeColumnsToContents()
+        stat_window.history_table.resizeRowsToContents()
+
+    def server_config():
+        global config_window
+        config_window = ConfigWindow()
+        config_window.path_database.insert(config['SETTINGS']['database_path'])
+        config_window.db_file_name_input.insert(
+            config['SETTINGS']['database_file'])
+        config_window.port.insert(config['SETTINGS']['default_port'])
+        config_window.ip.insert(config['SETTINGS']['listen_address'])
+        config_window.save_button.clicked.connect(save_server_config)
+
+    def save_server_config():
+        global confif_window
+        message = QMessageBox()
+        config['SETTINGS']['database_path'] = confif_window.path_database.text()
+        print(config['SETTINGS']['database_path'])
+        config['SETTINGS'][
+            'database_file'] = confif_window.db_file_name_input.text()
+        try:
+            port = int(confif_window.port.text())
+        except ValueError:
+            message.warning(confif_window, 'Ошибка', 'Порт должен быть числом')
+        else:
+            config['SETTINGS']['listen_address'] = confif_window.ip.text()
+            if 1023 < port < 65536:
+                config['SETTINGS']['default_port'] = str(port)
+                print(port)
+                with open('server.ini', 'w') as conf:
+                    config.write(conf)
+                    message.information(confif_window, 'OK',
+                                        'Настройки успешно сохранены')
+            else:
+                message.warning(confif_window, 'Ошибка',
+                                'Порт должен быть от 1024 до 65536')
+
+    timer = QTimer()
+    timer.timeout.connect(update_data_list)
+    timer.start(1000)
+    window.refresh_list.triggered.connect(update_data_list)
+    window.show_history_client.triggered.connect(show_statics_users)
+    window.config_server.triggered.connect(server_config)
+    app.exec_()
 
 
 if __name__ == '__main__':
