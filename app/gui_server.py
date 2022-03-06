@@ -8,7 +8,7 @@ import sys
 
 def gui_create_model_tabel(database):
     active_users_list = database.active_users_list()
-    # print(active_users_list)
+    print(active_users_list)
     model_table = QStandardItemModel()
     model_table.setHorizontalHeaderLabels(
         ['Пользователь', 'IP-адрес', 'Порт', 'Время подключения', ])
@@ -39,15 +39,14 @@ def gui_create_stat_model(db):
     for row in history_list:
         user, last_login, sent, recv = row
         user = QStandardItem(user)
-        last_login = QStandardItem(str(last_login.replace(microsecond=0)))
-        sent = QStandardItem(str(sent))
-        recv = QStandardItem(str(recv))
         user.setEditable(False)
+        last_login = QStandardItem(str(last_login.replace(microsecond=0)))
         last_login.setEditable(False)
+        sent = QStandardItem(str(sent))
         sent.setEditable(False)
+        recv = QStandardItem(str(recv))
         recv.setEditable(False)
         table.appendRow([user, last_login, sent, recv])
-    print(table)
     return table
 
 
@@ -63,15 +62,19 @@ class GeneralWindow(QMainWindow):
         self.setFixedSize(800, 600)
 
         # содание кнопки выхода, добавление горячих клавиш для выхода
-        exitButton = QAction(QIcon('exitButton.png'), '&Выход', self)
+        exitButton = QAction(QIcon('exitButton.png'), 'Выход', self)
         exitButton.setShortcut('Ctr+Q')
         # отображение подсказки в строке состояния при наведении
         exitButton.setStatusTip('Выход из приложения')
         exitButton.triggered.connect(qApp.quit)
 
         self.refresh_list = QAction('Обновить список', self)
+        self.refresh_list.setStatusTip('Обновить список активных пользователей')
         self.config_server = QAction('Настройки сервера', self)
+        self.config_server.setStatusTip('Просмотр и изменение настроек сервера')
         self.show_history_client = QAction('История пользователей', self)
+        self.show_history_client.setStatusTip(
+            'Просмотр статистики пользователей')
 
         self.statusBar().showMessage('Загрузка...')
 
@@ -117,7 +120,6 @@ class HistoryWindow(QDialog):
         self.table_history = QTableView(self)
         self.table_history.move(10, 10)
         self.table_history.setFixedSize(580, 620)
-
         self.show()
 
 

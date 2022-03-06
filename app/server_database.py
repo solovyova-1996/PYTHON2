@@ -51,11 +51,11 @@ class ServerDatabase:
             self.sent = 0
             self.accepted = 0
 
-    def __init__(self,path):
+    def __init__(self, path):
         # создание базы данных
         self.database = create_engine(f'sqlite:///{path}', echo=False,
-                                      pool_recycle=7200,connect_args={
-                'check_same_thread': False})
+                                      pool_recycle=7200,
+                                      connect_args={'check_same_thread': False})
         # для создания таблиц типа migrate , makemigrations
         self.metadata = MetaData()
         # создание сессии для внесения изменений в бд
@@ -119,8 +119,7 @@ class ServerDatabase:
 
         if result.count():
             user = result.first()
-            user.last_login = datetime.now()
-            self.session.add(user)
+            user.last_login = datetime.now()  # self.session.add(user)
         else:
             user = self.Users(name_user)
             self.session.add(user)
@@ -171,11 +170,10 @@ class ServerDatabase:
         # print(recipient)
         sender_value = self.session.query(self.UsersHistory).filter_by(
             user=sender).first()
-        # print(sender_value)
         sender_value.sent += 1
         recipient_value = self.session.query(self.UsersHistory).filter_by(
             user=recipient).first()
-        recipient_value.sent += 1
+        recipient_value.accepted += 1
         self.session.commit()
 
     def add_contact(self, user, contact):
@@ -206,7 +204,7 @@ class ServerDatabase:
         query = self.session.query(self.Users.name, self.Users.last_login,
                                    self.UsersHistory.sent,
                                    self.UsersHistory.accepted).join(self.Users)
-        print(query.all())
+
         return query.all()
 
     def get_contacts(self, username):
