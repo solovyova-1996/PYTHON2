@@ -2676,3 +2676,43 @@ j
 2022-03-12 00:23:54,471        DEBUG-10                   transport                    Создание контакта ppp
 2022-03-12 00:23:54,580        DEBUG-10                   transport                    Разбор сообщения от сервера: {'response': 200, 'data_list': ['ppp']}
 2022-03-12 00:23:55,212        INFO-20                   general_window               Успешно добавлен контакт <PyQt5.QtGui.QStandardItem object at 0x000001EC3A19CE50>
+2022-03-12 00:48:27,224        DEBUG-10                   client_2                     Вызванная функция:  argv_parser параметры функции: () и {} Модуль, из которого вызвана функция: t_2.py", Вызов из функции <module>
+2022-03-12 00:48:38,121        INFO-20                   client_2                     Запущен клиент с парамертами: адрес сервера: 127.0.0.1 , порт: 7772, имя пользователя: ppp
+2022-03-12 00:48:38,467        INFO-20                   transport                    Попытка подключения №1
+2022-03-12 00:48:38,469        DEBUG-10                   transport                    Установлено соединение с сервером
+2022-03-12 00:48:38,469        DEBUG-10                   transport                    Сформировано presense сообщение для пользователя ppp
+2022-03-12 00:48:39,675        DEBUG-10                   transport                    Разбор сообщения от сервера: {'response': 200, 'data_list': ['ppp']}
+2022-03-12 00:48:39,676        INFO-20                   transport                    Соединение с сервером успешно установлено.
+2022-03-12 00:48:39,676        DEBUG-10                   transport                    Запрос списка известных пользователей ppp
+2022-03-12 00:48:41,249        DEBUG-10                   transport                    Запрос контакт листа для пользователся Thread-1
+2022-03-12 00:48:41,250        DEBUG-10                   transport                    Сформирован запрос {'action': 'get_contacts', 'time': 1647024521.2505498, 'user': 'ppp'}
+2022-03-12 00:48:41,728        DEBUG-10                   transport                    Получен ответ {'response': 200, 'data_list': ['ooo']}
+2022-03-12 00:48:41,729        ERROR-40                   transport                    Не удалось обновить список контактов.
+2022-03-12 00:48:41,730        DEBUG-10                   transport                    Запущен процесс - приёмник собщений с сервера.
+2022-03-12 00:48:50,742        DEBUG-10                   transport                    Создание контакта ooo
+2022-03-12 00:48:50,909        DEBUG-10                   transport                    Разбор сообщения от сервера: {'response': 200, 'data_list': ['ooo']}
+2022-03-12 00:48:52,241        INFO-20                   general_window               Успешно добавлен контакт <PyQt5.QtGui.QStandardItem object at 0x000001503D38E310>
+2022-03-12 00:49:03,624        DEBUG-10                   transport                    Сформирован словарь сообщения: {'action': 'message', 'sender': 'ppp', 'to': 'ooo', 'time': 1647024543.624792, 'mess_text': 'jjj'}
+2022-03-12 00:49:04,597        DEBUG-10                   transport                    Принято сообщение с сервера: {'action': 'message', 'sender': 'ppp', 'to': 'ooo', 'time': 1647024543.624792, 'mess_text': 'jjj'}
+2022-03-12 00:49:04,598        DEBUG-10                   transport                    Разбор сообщения от сервера: {'action': 'message', 'sender': 'ppp', 'to': 'ooo', 'time': 1647024543.624792, 'mess_text': 'jjj'}
+2022-03-12 00:49:04,598        DEBUG-10                   transport                    Получено сообщение от пользователя ppp:jjj
+2022-03-12 00:54:46,296        DEBUG-10                   transport                    Сформирован словарь сообщения: {'action': 'message', 'sender': 'ppp', 'to': 'ooo', 'time': 1647024886.2964072, 'mess_text': 'hh'}
+2022-03-12 00:54:46,875        DEBUG-10                   transport                    Принято сообщение с сервера: {'action': 'message', 'sender': 'ppp', 'to': 'ooo', 'time': 1647024886.2964072, 'mess_text': 'hh'}
+2022-03-12 00:54:46,876        DEBUG-10                   transport                    Разбор сообщения от сервера: {'action': 'message', 'sender': 'ppp', 'to': 'ooo', 'time': 1647024886.2964072, 'mess_text': 'hh'}
+2022-03-12 00:54:46,876        DEBUG-10                   transport                    Получено сообщение от пользователя ppp:hh
+2022-03-12 00:57:30,283        DEBUG-10                   transport                    Сформирован словарь сообщения: {'action': 'message', 'sender': 'ppp', 'to': 'ooo', 'time': 1647025050.28373, 'mess_text': 'k'}
+2022-03-12 00:57:30,965        DEBUG-10                   transport                    Принято сообщение с сервера: {'action': 'message', 'sender': 'ppp', 'to': 'ooo', 'time': 1647025050.28373, 'mess_text': 'k'}
+2022-03-12 00:57:30,965        DEBUG-10                   transport                    Разбор сообщения от сервера: {'action': 'message', 'sender': 'ppp', 'to': 'ooo', 'time': 1647025050.28373, 'mess_text': 'k'}
+2022-03-12 00:57:30,966        DEBUG-10                   transport                    Получено сообщение от пользователя ppp:k
+2022-03-12 01:03:26,158        DEBUG-10                   transport                    Сформирован словарь сообщения: {'action': 'message', 'sender': 'ooo', 'to': 'ppp', 'time': 1647025406.1588912, 'mess_text': 'l'}
+2022-03-12 01:03:27,184        DEBUG-10                   transport                    Принято сообщение с сервера: {'action': 'message', 'sender': 'ooo', 'to': 'ppp', 'time': 1647025406.1588912, 'mess_text': 'l'}
+2022-03-12 01:03:27,185        DEBUG-10                   transport                    Разбор сообщения от сервера: {'action': 'message', 'sender': 'ooo', 'to': 'ppp', 'time': 1647025406.1588912, 'mess_text': 'l'}
+2022-03-12 01:03:27,185        DEBUG-10                   transport                    Получено сообщение от пользователя ooo:l
+2022-03-12 01:05:01,766        DEBUG-10                   transport                    Сформирован словарь сообщения: {'action': 'message', 'sender': 'ppp', 'to': 'ooo', 'time': 1647025501.7660418, 'mess_text': 'а'}
+2022-03-12 01:05:03,089        DEBUG-10                   transport                    Принято сообщение с сервера: {'action': 'message', 'sender': 'ppp', 'to': 'ooo', 'time': 1647025501.7660418, 'mess_text': 'а'}
+2022-03-12 01:05:03,089        DEBUG-10                   transport                    Разбор сообщения от сервера: {'action': 'message', 'sender': 'ppp', 'to': 'ooo', 'time': 1647025501.7660418, 'mess_text': 'а'}
+2022-03-12 01:05:03,090        DEBUG-10                   transport                    Получено сообщение от пользователя ppp:а
+2022-03-12 01:14:08,502        DEBUG-10                   transport                    Сформирован словарь сообщения: {'action': 'message', 'sender': 'ooo', 'to': 'ppp', 'time': 1647026048.502431, 'mess_text': 'л'}
+2022-03-12 01:14:09,899        DEBUG-10                   transport                    Принято сообщение с сервера: {'action': 'message', 'sender': 'ooo', 'to': 'ppp', 'time': 1647026048.502431, 'mess_text': 'л'}
+2022-03-12 01:14:09,899        DEBUG-10                   transport                    Разбор сообщения от сервера: {'action': 'message', 'sender': 'ooo', 'to': 'ppp', 'time': 1647026048.502431, 'mess_text': 'л'}
+2022-03-12 01:14:09,899        DEBUG-10                   transport                    Получено сообщение от пользователя ooo:л

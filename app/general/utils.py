@@ -20,7 +20,7 @@ def send_mesages(sock, messages):
     #     raise NonDictInputError
     # сериализуем данные переданные в сообщении в json
     json_messages = json.dumps(messages)
-    # кодируем данные в байты
+    print(messages)
     encoded_messages = json_messages.encode(ENCODING)
     # передача данных
     sock.send(encoded_messages)

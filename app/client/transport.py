@@ -152,6 +152,7 @@ class ClientTransport(threading.Thread, QObject):
                         TIME: time(), MESSAGE_TEXT: message}
         logger.debug(f'Сформирован словарь сообщения: {message_dict}')
         with socket_lock:
+            print('вошли')
             send_mesages(self.transport, message_dict)
             self.handler_server_answer(get_messages(self.transport))
             print(get_messages(self.transport))

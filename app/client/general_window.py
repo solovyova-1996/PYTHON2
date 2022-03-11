@@ -73,7 +73,7 @@ class ClientGeneralWindow(QMainWindow):
         '''
         lst = sorted(self.database.get_history(self.current_chat),
                      key=lambda item: item[3])
-        print(lst)
+        # print(lst)
         if not self.history_model:
             self.history_model = QStandardItemModel()
             self.ui.list_messages.setModel(self.history_model)
@@ -223,7 +223,7 @@ class ClientGeneralWindow(QMainWindow):
         '''Отправка сообщения пользователю'''
         message_text = self.ui.text_message.toPlainText()
         self.ui.text_message.clear()
-        print(self.current_chat)
+        # print(self.current_chat)
         if not message_text:
             return
         try:
@@ -231,7 +231,7 @@ class ClientGeneralWindow(QMainWindow):
         except ServerError as err:
             self.messages.critical(self, 'Ошибка', err.text)
         except OSError as err:
-            # print(err.text)
+            # print(err)
             if err.errno:
                 self.messages.critical(self, 'Ошибка',
                                        'Потеряно соединение с сервером!')
@@ -245,8 +245,9 @@ class ClientGeneralWindow(QMainWindow):
             self.database.save_message(self.current_chat, 'out', message_text)
             logger.debug(
                 f'Отправлено сообщение для {self.current_chat}: {message_text}')
+
     @pyqtSlot(str)
-    def message(self,sender):
+    def message(self, sender):
         '''Слот приема нового сообщения'''
         if sender == self.current_chat:
             self.history_list_update()
@@ -255,7 +256,7 @@ class ClientGeneralWindow(QMainWindow):
             if self.database.check_contact(sender):
                 # Если есть, спрашиваем и желании открыть с ним чат и открываем при желании
                 if self.messages.question(self, 'Новое сообщение',
-                f'Получено новое сообщение от {sender}, открыть чат с ним?',
+                                          f'Получено новое сообщение от {sender}, открыть чат с ним?',
                                           QMessageBox.Yes,
                                           QMessageBox.No) == QMessageBox.Yes:
                     self.current_chat = sender
@@ -264,7 +265,7 @@ class ClientGeneralWindow(QMainWindow):
                 print('NO')
                 # Раз нету,спрашиваем хотим ли добавить юзера в контакты.
                 if self.messages.question(self, 'Новое сообщение',
-                f'Получено новое сообщение от {sender}.\n Данного пользователя нет в вашем контакт-листе.\n Добавить в контакты и открыть чат с ним?',
+                                          f'Получено новое сообщение от {sender}.\n Данного пользователя нет в вашем контакт-листе.\n Добавить в контакты и открыть чат с ним?',
                                           QMessageBox.Yes,
                                           QMessageBox.No) == QMessageBox.Yes:
                     self.add_contact(sender)
