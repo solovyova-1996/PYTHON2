@@ -22,11 +22,11 @@ class ClientTransport(threading.Thread, QObject):
     new_message = pyqtSignal(str)
     connection_lost = pyqtSignal()
 
-    def __init__(self, port, ip, database, usernsme):
+    def __init__(self, port, ip, database, username):
         threading.Thread.__init__(self)
         QObject.__init__(self)
         self.database = database
-        self.username = usernsme
+        self.username = username
         self.transport = None
         self.connection_init(port, ip)
         try:
@@ -90,6 +90,7 @@ class ClientTransport(threading.Thread, QObject):
         logger.debug(f'Создание контакта {contact}')
         request = {ACTION: ADD_CONTACT, TIME: time(), USER: self.username,
                    ACCOUNT_NAME: contact}
+        # print(request)
         with socket_lock:
             send_mesages(self.transport, request)
             self.handler_server_answer(get_messages(self.transport))
@@ -153,6 +154,7 @@ class ClientTransport(threading.Thread, QObject):
         with socket_lock:
             send_mesages(self.transport, message_dict)
             self.handler_server_answer(get_messages(self.transport))
+            print(get_messages(self.transport))
             logger.info(f'Отправлено сообщение для пользователя {to}')
 
     def run(self):
